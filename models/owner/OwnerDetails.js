@@ -58,8 +58,6 @@ const OwnerDetails = sequelize.define(
   }
 );
 OwnerDetails.sync(); 
-OwnerDetails.hasMany(BusDetails,{
-  foreignKey:"userId"
-});
-BusDetails.belongsTo(OwnerDetails);
+
+
 module.exports =OwnerDetails

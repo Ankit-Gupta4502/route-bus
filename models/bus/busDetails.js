@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../util/database");
-const OwnerDetails = require("../owner/Owner");
+const OwnerDetails = require("../owner/OwnerDetails");
 
 const BusDetails = sequelize.define(
   "BusDetails",
@@ -111,5 +111,11 @@ const BusDetails = sequelize.define(
     timestamps: true,
   }
 );
+OwnerDetails.hasMany(BusDetails,{
+  foreignKey:"ownerDetailsId"
+});
+
+BusDetails.belongsTo(OwnerDetails);
+
 BusDetails.sync();
 module.exports = BusDetails

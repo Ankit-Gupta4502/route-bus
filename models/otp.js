@@ -13,10 +13,13 @@ const Otp = sequelize.define("otp", {
     otp: {
         type: DataTypes.INTEGER,
     },
-    
+    isVerified:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+    },
 }, {
     timestamps: true,
 });
 
-
-module.exports = Otp.sync();
+Otp.sync({alter:true})
+module.exports = Otp;

@@ -1,5 +1,5 @@
 const Bus = require("../../models/bus/BusDetails");
-const Owner = require("../../models/owner/Owner"); 
+const Owner = require("../../models/owner/OwnerDetails"); 
 exports.addBus = async (req, res) => {
     const { ownerId } = req.params;
 

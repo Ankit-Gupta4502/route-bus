@@ -5,11 +5,6 @@ const Bookings = require("../bus/Bookings");
 const User = sequelize.define("User", {
     name: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-            len: [2, 50]
-        }
     },
     phone: {
         type: DataTypes.INTEGER,
@@ -19,19 +14,19 @@ const User = sequelize.define("User", {
             len: [10, 10] 
         }
     },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false, 
-        unique: true,
-        validate: {
-            notEmpty: true, 
-            isEmail: true 
-        }
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,  
-    },
+    // email: {
+    //     type: DataTypes.STRING,
+    //     allowNull: false, 
+    //     unique: true,
+    //     validate: {
+    //         notEmpty: true, 
+    //         isEmail: true 
+    //     }
+    // },
+    // password: {
+    //     type: DataTypes.STRING,
+    //     allowNull: false,  
+    // },
       walletBalance: {
         type: DataTypes.DECIMAL(10, 2),
         defaultValue: 0.00

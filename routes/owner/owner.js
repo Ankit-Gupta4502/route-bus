@@ -1,10 +1,11 @@
-const { register, updateVerification } = require("../../controllers/owner/owner");
+const { updateVerification, ownerProfile } = require("../../controllers/owner/owner");
+const { checkToken } = require("../../middleware/auth");
 
 
 
 const router = require("express").Router();
 
-router.post("/register",register);
-router.patch("/:ownerId/verification", updateVerification);
+router.post("/profile",checkToken,ownerProfile);
+
 
 module.exports=router;
