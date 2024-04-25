@@ -1,7 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../util/database");
-const User = require("../user/user");
-
+const User = require("../user/user")
 
 const Bookings= sequelize.define(
   "Bookings",
@@ -54,5 +53,6 @@ const Bookings= sequelize.define(
     timestamps: true,
   }
 );
-Bookings.sync()
+
+Bookings.sync();
 module.exports =Bookings;

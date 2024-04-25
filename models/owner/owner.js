@@ -1,5 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../util/database");
+const BusDetails=require("../bus/BusDetails");
+
 
 const OwnerDetails = sequelize.define(
   "OwnerDetails",
@@ -49,10 +51,15 @@ const OwnerDetails = sequelize.define(
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
+
   },
   {
     timestamps: true,
   }
 );
-OwnerDetails.sync();
+OwnerDetails.sync(); 
+OwnerDetails.hasMany(BusDetails,{
+  foreignKey:"userId"
+});
+BusDetails.belongsTo(OwnerDetails);
 module.exports =OwnerDetails

@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../util/database");
+const OwnerDetails = require("../owner/Owner");
 
 const BusDetails = sequelize.define(
   "BusDetails",
@@ -100,6 +101,11 @@ const BusDetails = sequelize.define(
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
+    ownerDetailsId:{
+      type:DataTypes.INTEGER,
+      model:OwnerDetails,
+      key:"id"
+    }
   },
   {
     timestamps: true,
