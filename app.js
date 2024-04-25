@@ -4,6 +4,8 @@ const userRoute=require("./routes/user/user");
 const ownerRoute = require("./routes/owner/owner");
 const busRoute = require("./routes/bus/busDetails");
 const otpRoutes=require("./middleware/otp");
+const adminRoutes = require("./routes/admin/index");
+
 app.use(express.static("./public"))
 
  
@@ -16,8 +18,7 @@ app.use("/api/mobile/owner",ownerRoute);
 app.use("/api/mobile/bus",busRoute); 
 app.use("/api/mobile/otp", otpRoutes);
 app.use("/api/mobile/busDetail",busRoute)
-
-
+app.use("/api/admin",adminRoutes)
 
  
 app.listen(5000,()=>console.log("working on 5000"));
