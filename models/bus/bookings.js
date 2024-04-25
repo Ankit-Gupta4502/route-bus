@@ -54,5 +54,5 @@ const Bookings= sequelize.define(
     timestamps: true,
   }
 );
-Bookings.sync({alter:true})
-module.exports =Bookings ;
+Bookings.sync()
+module.exports =Bookings;

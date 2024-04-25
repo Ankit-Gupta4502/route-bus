@@ -5,10 +5,20 @@ const sequelize = require("./util/database");
 const ownerRoute = require("./routes/owner/owner");
 const busRoute = require("./routes/bus/busDetails");
 const otpRoutes=require("./middleware/otp");
-const {BookingRelations,userRelation} = require("./relations/MobileApiRelations");
 const User = require("./models/user/user");
 const Bookings = require("./models/bus/Bookings");
 
+app.get("/bookings",async(req,res)=>{
+    try {
+        const resp = await Bookings.findAll({
+            include:[{model:User}]
+        })
+        return res.status(200).json({resp})
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({error})
+    }
+})
 
 require('dotenv').config();
 
@@ -19,16 +29,7 @@ app.use("/api/mobile/owner",ownerRoute);
 app.use("/api/mobile/bus",busRoute); 
 app.use("/api/mobile/otp", otpRoutes);
 
-app.get("/bookings",async(req,res)=>{
-    try {
-        const res = await User.findAll({
-            include:[{model:Bookings}]
-        })
-        return res.send({res})
-    } catch (error) {
-        return res.send({error})
-    }
-})
+
 
  
 app.listen(5000,()=>console.log("working on 5000"));
