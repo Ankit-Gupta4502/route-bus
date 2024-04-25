@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../util/database");
 
-const Owner_details = sequelize.define(
-  "owner_details",
+const OwnerDetails = sequelize.define(
+  "OwnerDetails",
   {
     name: {
         type: DataTypes.STRING,
@@ -54,5 +54,5 @@ const Owner_details = sequelize.define(
     timestamps: true,
   }
 );
-
-module.exports = Owner_details;
+OwnerDetails.sync();
+module.exports =OwnerDetails

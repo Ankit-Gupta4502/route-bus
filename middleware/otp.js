@@ -1,6 +1,6 @@
 
 const randomstring = require("randomstring");
-const Otp = require("../models/otp");
+const Otp = require("../models/Otp");
 const express = require("express");
 const router = express.Router();
 

@@ -31,4 +31,4 @@ const Conductor = sequelize.define("conductor", {
     timestamps: true,
 });
 
-module.exports = Conductor;
+module.exports = Conductor.sync();

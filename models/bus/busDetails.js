@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../util/database");
 
-const Bus = sequelize.define(
-  "bus",
+const BusDetails = sequelize.define(
+  "BusDetails",
   {
     busNumber: {
       type: DataTypes.STRING,
@@ -105,5 +105,5 @@ const Bus = sequelize.define(
     timestamps: true,
   }
 );
-
-module.exports = Bus;
+BusDetails.sync();
+module.exports = BusDetails

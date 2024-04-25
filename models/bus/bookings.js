@@ -1,8 +1,10 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../util/database");
+const User = require("../user/user");
 
-const Booking= sequelize.define(
-  "Booking",
+
+const Bookings= sequelize.define(
+  "Bookings",
   {
     amount: {
       type: DataTypes.INTEGER,
@@ -41,10 +43,16 @@ const Booking= sequelize.define(
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
+
+    userId:{
+      type:DataTypes.INTEGER,
+      model:User,
+      key:"id"
+    }
   },
   {
     timestamps: true,
   }
 );
-
-module.exports = Booking;
+Bookings.sync({alter:true})
+module.exports =Bookings ;

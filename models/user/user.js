@@ -1,7 +1,8 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../util/database");
+const Booking = require("../bus/Bookings");
 
-const User = sequelize.define("user", {
+const User = sequelize.define("User", {
     name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -57,5 +58,5 @@ const User = sequelize.define("user", {
     timestamps: true,
 });
 
-
+User.sync()
 module.exports = User;

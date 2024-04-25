@@ -19,4 +19,4 @@ const Otp = sequelize.define("otp", {
 });
 
 
-module.exports = Otp;
+module.exports = Otp.sync();
