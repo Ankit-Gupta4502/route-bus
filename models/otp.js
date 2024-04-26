@@ -21,5 +21,5 @@ const Otp = sequelize.define("otp", {
     timestamps: true,
 });
 
-Otp.sync({alter:true})
+Otp.sync()
 module.exports = Otp;

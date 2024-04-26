@@ -19,6 +19,6 @@ app.use("/api/mobile/bus",busRoute);
 app.use("/api/mobile/otp", otpRoutes);
 app.use("/api/mobile/busDetail",busRoute)
 app.use("/api/admin",adminRoutes)
-
+ 
  
 app.listen(5000,()=>console.log("working on 5000"));
