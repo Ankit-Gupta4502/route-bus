@@ -7,14 +7,15 @@ router.post("/sendotp", async (req, res) => {
   const { user_type, phone } = req.body;
   try {
     const existingOTP = await Otp.findOne({ where: { phone } });
+    if (existingOTP && existingOTP.dataValues.isVerified) {
+      return res.status(409).json({ message: "Redirected to login." });
+    }
     if(existingOTP && !isExpired(existingOTP.dataValues.createdAt)){
         return res.status(429).json({message: "Please wait before requesting a new OTP." })
     }
 
 
-    if (existingOTP && existingOTP.dataValues.isVerified) {
-      return res.status(409).json({ message: "Redirected to login." });
-    }
+   
     if (existingOTP && !existingOTP.dataValues.isVerified) {
       // If an existing OTP is not verified, delete it and proceed to send a new OTP
       await Otp.destroy({ where: { phone, isVerified: false } });
