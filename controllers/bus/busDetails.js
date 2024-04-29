@@ -49,9 +49,9 @@ exports.addBusDetail = async (req, res) => {
     isApproved,
     ownerDetailId,
   } = req.body;
-  console.log('====================================');
-  console.log(req.files.image_driver[0].path,"pathhhh");
-  console.log('====================================');
+  // console.log('====================================');
+  // console.log(req.files.image_driver[0].path,"pathhhh");
+  // console.log('====================================');
   try {
     const bus = await Bus.findOne({ where: { busNumber: busNumber } });
     if (bus) {
@@ -107,3 +107,4 @@ exports.addConductor = async (req, res) => {
     return res.status(501).send("Internal server error");
   }
 };
+
