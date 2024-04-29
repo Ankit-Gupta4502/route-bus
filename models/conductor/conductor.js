@@ -11,7 +11,7 @@ const Conductor = sequelize.define("conductor", {
         }
     },
     phone: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false, 
         validate: {
             notEmpty: true, 
@@ -30,5 +30,5 @@ const Conductor = sequelize.define("conductor", {
 }, {
     timestamps: true,
 });
-
-module.exports = Conductor.sync();
+Conductor.sync()
+module.exports = Conductor;

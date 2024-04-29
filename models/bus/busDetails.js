@@ -54,24 +54,25 @@ const BusDetails = sequelize.define(
       allowNull: false,
     },
     driver_phone: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
+  
     },
     conductor_name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     conductor_phone: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      type: DataTypes.STRING,
+      allowNull:false,
     },
     image_license: {
-      type: DataTypes.STRING,
-      allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: false
      },
     image_driver: {
-      type: DataTypes.STRING,
-      allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: false
      },
     from: {
       type: DataTypes.STRING,
@@ -117,5 +118,5 @@ OwnerDetails.hasMany(BusDetails,{
 
 BusDetails.belongsTo(OwnerDetails);
 
-BusDetails.sync();
+BusDetails.sync({alter:true});
 module.exports = BusDetails
