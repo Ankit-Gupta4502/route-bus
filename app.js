@@ -17,7 +17,7 @@ app.use("/api/mobile/user",userRoute);
 app.use("/api/mobile/owner",ownerRoute);
 app.use("/api/mobile/bus",busRoute); 
 app.use("/api/mobile/otp", otpRoutes);
-app.use("/api/mobile/busDetail",busRoute)
+// app.use("/api/mobile/busDetail",busRoute)
 app.use("/api/admin",adminRoutes)
  
  

@@ -1,4 +1,4 @@
-const BankDetails = require("../../models/owner/BankDetails");
+// const BankDetails = require("../../models/owner/BankDetails");
 const OwnerDetails = require("../../models/owner/OwnerDetails");
 
 
