@@ -66,12 +66,12 @@ const BusDetails = sequelize.define(
       allowNull: false,
     },
     image_license: {
-        type: DataTypes.BLOB,
-        allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
      },
     image_driver: {
-        type: DataTypes.BLOB,
-        allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
      },
     from: {
       type: DataTypes.STRING,
