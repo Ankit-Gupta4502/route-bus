@@ -2,8 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const checkToken = async (req, res, next) => {
   try {
-    let authToken = req.header["Authorization"] || req.header["authorization"];
-    
+    let authToken = req.header('Authorization') || req.header('Authorization')
     if (!authToken) {
       return res.status(401).json({ message: "Unauthorized" });
     }
@@ -19,7 +18,6 @@ const checkToken = async (req, res, next) => {
       req.decoded = decoded;
       next();
     });
-    next();
   } catch (err) {
     console.log(err);
     return res.status(401).json("not found user");

@@ -1,4 +1,4 @@
-const { updateVerification, ownerProfile } = require("../../controllers/owner/owner");
+const { ownerProfile } = require("../../controllers/owner/owner");
 const { checkToken } = require("../../middleware/auth");
 
 

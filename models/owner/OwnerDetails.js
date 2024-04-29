@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../util/database");
-const BusDetails=require("../bus/BusDetails");
 
 
 const OwnerDetails = sequelize.define(
@@ -39,25 +38,11 @@ const OwnerDetails = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    isVerified:{
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
-    isDeleted: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
-    isConfirmed: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
-
   },
   {
     timestamps: true,
   }
 );
 OwnerDetails.sync(); 
-
 
 module.exports =OwnerDetails

@@ -1,27 +1,32 @@
-const Owner= require("../../models/Otp");
+const BankDetails = require("../../models/owner/BankDetails");
+const OwnerDetails = require("../../models/owner/OwnerDetails");
 
 
 exports.ownerProfile = async(req, res) => {
-  console.log(req.params)
-    // const {name, email,phone ,user_type} = req.body;
-    // const existingOwner = await Otp.findOne({ where: {phone} });
-    // try {
-    //   if (existingOwner) {
-    //    return res.status(409).json("Email already exists");
-    //   } else {
+ 
+  try {
+    const { name, phone,email,adharcard,pancard,accountNumber, bankName, IFSCCode } = req.body;
+    console.log(req.body)
+    const newOwner = await OwnerDetails.create({
+      name,
+      email,
+      phone,
+      pancard,
+      adharcard
+    });
+    const newBankDetails = await BankDetails.create({
+      ownerDetailsId: newOwner.id,
+      accountNumber,
+      bankName, 
+      IFSCCode,
+    });
+    return res.status(201).json({ owner: newOwner, bankDetails: newBankDetails });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
 
-    //     const newOwner = await Owner.create({
-    //       email,
-    //       name,
-    //       phone,
-    //       adharcard,pancard,isConfirmed,isVerified,isDeleted 
-    //     });
-    //     const savedOwner = await newOwner.save();
-    //     return res.status(200).json(savedOwner);
-    // }
-    // } catch (error) {
-    //  return res.status(500).send("Internal Server Error");
-    // }
-  };
+
 
  
