@@ -6,4 +6,5 @@ exports.loginRules = () => [
     .withMessage("Please enter your email")
     .isEmail()
     .withMessage("Please enter valid email"),
+    body("password").notEmpty().withMessage("Please enter your password"),
 ];

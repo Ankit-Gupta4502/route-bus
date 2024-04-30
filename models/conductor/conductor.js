@@ -27,8 +27,13 @@ const Conductor = sequelize.define("conductor", {
             isEmail: true 
         }
     },
+    isDeleted: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false,
+      },
 }, {
     timestamps: true,
 });
-Conductor.sync()
+Conductor.sync({alter:true})
 module.exports = Conductor;

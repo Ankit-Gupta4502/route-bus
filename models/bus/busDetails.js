@@ -106,6 +106,12 @@ const BusDetails = sequelize.define(
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
+    isDeleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+    },
+    
     ownerDetailsId:{
       type:DataTypes.INTEGER,
       model:OwnerDetails,
