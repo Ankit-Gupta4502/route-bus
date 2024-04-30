@@ -2,6 +2,10 @@ const {
   addBus,
   addBusDetail,
   addConductor,
+  deleteBusDetails,
+  deleteConductor,
+  editBusDetails,
+  editConductorDetails,
 } = require("../../controllers/bus/busDetails");
 const { checkToken } = require("../../middleware/auth");
 const { uploadMulter } = require("../../util/index");
@@ -19,5 +23,15 @@ router.post(
   addBusDetail
 );
 router.post("/add-conductor", checkToken, addConductor);
-
+router.delete("/bus-delete/:id", deleteBusDetails);
+router.delete("/conductor-delete/:id", deleteConductor);
+router.put(
+  "/updateBus/:id",
+  uploadMulter().fields([
+    { name: "image_license", maxCount: 1 },
+    { name: "image_driver", maxCount: 1 },
+  ]),
+  editBusDetails
+);
+router.put("/updateConductor/:id", editConductorDetails);
 module.exports = router;
