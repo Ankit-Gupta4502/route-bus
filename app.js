@@ -4,9 +4,11 @@ const userRoute=require("./routes/user/user");
 // const ownerRoute = require("./routes/owner/owner");
 const busRoute = require("./routes/bus/busDetails");
 const otpRoutes=require("./middleware/otp");
+const cors = require("cors")
 const adminRoutes = require("./routes/admin/index");
 
 app.use(express.static("./public"))
+app.use(cors())
 
  
 require('dotenv').config(); 
