@@ -82,6 +82,10 @@ const BusDetails = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    departureTime: {
+      type: DataTypes.TIME,
+      allowNull: false,
+    },
     // isAc: {
     //   type: DataTypes.BOOLEAN,
     //   allowNull: false,

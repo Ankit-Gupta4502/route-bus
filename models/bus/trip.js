@@ -23,10 +23,12 @@ const Trip = sequelize.define(
     timestamps: false,
   }
 );
+Trip.sync(); 
+
 BusDetails.hasMany(Trip, {
-    foreignKey:"busDetailsId"
-  });
-  Trip.belongsTo(BusDetails);
+  foreignKey:"busDetailsId"
+});
+Trip.belongsTo(BusDetails);
   
 
 module.exports = Trip;
