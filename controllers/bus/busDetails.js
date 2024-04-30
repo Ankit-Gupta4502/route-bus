@@ -135,6 +135,9 @@ exports.deleteConductor = async (req, res) => {
 exports.editBusDetails = async (req, res) => {
   const { id } = req.params;
   try {
+    const oldBus = await Bus.findByPk(id);
+    const oldImageLicensePath = oldBus.image_license;
+    const oldImageDriverPath = oldBus.image_driver;
     const manageBusDetails = await Bus.update(
       {
         busNumber: req.body.busNumber,
@@ -164,12 +167,18 @@ exports.editBusDetails = async (req, res) => {
       },
       { where: { id: id } }
     );
-    if (!manageBusDetails) {
-      return res.status(422).send({ message: "Bus not found" });
-    }
+    if (manageBusDetails[0] === 1) {
+      if (oldImageLicensePath && oldImageDriverPath) {
+        const fs = require('fs');
+        fs.unlinkSync(oldImageLicensePath);
+        fs.unlinkSync(oldImageDriverPath);
+      }
+      // return res.status(422).send({ message: "Bus not found" });
+ 
     return res
       .status(200)
       .send({ message: "Bus Details updated successfully", manageBusDetails });
+    }
   } catch (error) {
     console.error(error);
     return res.status(500).send({ message: "Internal server error" });
@@ -202,3 +211,5 @@ exports.editConductorDetails = async (req, res) => {
     return res.status(500).send("Internal server error");
   }
 };
+
+

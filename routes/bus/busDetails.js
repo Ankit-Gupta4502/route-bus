@@ -23,15 +23,16 @@ router.post(
   addBusDetail
 );
 router.post("/add-conductor", checkToken, addConductor);
-router.delete("/bus-delete/:id", deleteBusDetails);
-router.delete("/conductor-delete/:id", deleteConductor);
+router.delete("/bus-delete/:id",checkToken, deleteBusDetails);
+router.delete("/conductor-delete/:id",checkToken, deleteConductor);
 router.put(
   "/updateBus/:id",
   uploadMulter().fields([
     { name: "image_license", maxCount: 1 },
     { name: "image_driver", maxCount: 1 },
   ]),
+  checkToken,
   editBusDetails
 );
-router.put("/updateConductor/:id", editConductorDetails);
+router.put("/updateConductor/:id",checkToken, editConductorDetails);
 module.exports = router;
