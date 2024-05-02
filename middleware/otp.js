@@ -4,7 +4,7 @@ const Otp = require("../models/otp");
 const jwt = require("jsonwebtoken");
 const Conductor = require("../models/conductor/conductor");
 const OwnerDetails = require("../models/owner/OwnerDetails");
-const User = require("../models/user/User");
+const User = require("../models/user/user");
 
 router.post("/sendotp", async (req, res) => {
   const { user_type, phone } = req.body;
