@@ -1,4 +1,4 @@
-const Bus = require("../../models/bus/busDetails");
+const Bus = require("../../models/bus/BusDetails");
 const conductor = require("../../models/conductor/conductor");
 const Owner = require("../../models/owner/OwnerDetails");
 
