@@ -1,5 +1,5 @@
 const BusDetails = require("../../models/bus/busDetails");
-const Stops = require("../../models/bus/Stops");
+const Stops = require("../../models/bus/stops");
 
 
 exports.saveStops = async (req, res) => {
