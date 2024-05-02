@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Otp = require("../models/Otp");
+const Otp = require("../models/otp");
 const jwt = require("jsonwebtoken");
 const Conductor = require("../models/conductor/conductor");
 const OwnerDetails = require("../models/owner/OwnerDetails");
