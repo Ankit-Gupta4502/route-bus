@@ -1,34 +1,25 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../../util/database');
-const OwnerDetails = require('./OwnerDetails');
+const mongoose = require("mongoose");
 
-const BankDetails = sequelize.define('BankDetails', {
+const bankDetailsSchema = new mongoose.Schema({
   accountNumber: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: String,
+    required: true,
   },
-  bankName: { 
-    type: DataTypes.STRING,
-    allowNull: false,
+  bankName: {
+    type: String,
+    required: true,
   },
   IFSCCode: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: String,
+    required: true,
   },
-  ownerDetailsId:{
-    type:DataTypes.INTEGER,
-    model:OwnerDetails,
-    key:"id"
-  }
-},
-{
-  timestamps: true,
-}
-);
+  ownerDetailsId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "OwnerDetails",
+    required: true,
+  },
+}, { timestamps: true });
 
-BankDetails.sync();
-OwnerDetails.hasOne(BankDetails,{
-  foreignKey:"ownerDetailsId"
-  });
-BankDetails.belongsTo(OwnerDetails)
+const BankDetails = mongoose.model("BankDetails", bankDetailsSchema);
+
 module.exports = BankDetails;

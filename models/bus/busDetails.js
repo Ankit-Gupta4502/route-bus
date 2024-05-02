@@ -1,132 +1,98 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../../util/database");
-const OwnerDetails = require("../owner/OwnerDetails");
+const mongoose = require("mongoose");
 
-const BusDetails = sequelize.define(
-  "BusDetails",
-  {
-    busNumber: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        len: [2, 50],
-      },
-    },
-    bus_type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    permit_type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    bus_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    bus_make: {
-      type: DataTypes.STRING, //ashokalayland
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        len: [2, 50],
-      },
-    },
-    color: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    base_station: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        len: [2, 50],
-      },
-    },
-    pincode: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    driver_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    driver_phone: {
-      type: DataTypes.STRING,
-      allowNull: false,
-  
-    },
-    conductor_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    conductor_phone: {
-      type: DataTypes.STRING,
-      allowNull:false,
-    },
-    image_license: {
-        type: DataTypes.STRING,
-        allowNull: false
-     },
-    image_driver: {
-        type: DataTypes.STRING,
-        allowNull: false
-     },
-    from: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    to: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    departureTime: {
-      type: DataTypes.TIME,
-      allowNull: false,
-    },
-    // isAc: {
-    //   type: DataTypes.BOOLEAN,
-    //   allowNull: false,
-    // },
-    // isSleeper: {
-    //   type: DataTypes.BOOLEAN,
-    //   allowNull: false,
-    // },
-    capacity: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    price: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    isApproved: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
-    isDeleted: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-      allowNull: false,
-    },
-    
-    ownerDetailsId:{
-      type:DataTypes.INTEGER,
-      model:OwnerDetails,
-      key:"id"
-    }
+const busDetailsSchema = new mongoose.Schema({
+  busNumber: {
+    type: String,
+    required: true,
   },
-  {
-    timestamps: true,
-  }
-);
-OwnerDetails.hasMany(BusDetails,{
-  foreignKey:"ownerDetailsId"
-});
+  bus_type: {
+    type: String,
+    required: true,
+  },
+  permit_type: {
+    type: String,
+    required: true,
+  },
+  bus_name: {
+    type: String,
+    required: true,
+  },
+  bus_make: {
+    type: String,
+    required: true,
+  },
+  color: {
+    type: String,
+    required: true,
+  },
+  base_station: {
+    type: String,
+    required: true,
+  },
+  pincode: {
+    type: Number,
+    required: true,
+  },
+  driver_name: {
+    type: String,
+    required: true,
+  },
+  driver_phone: {
+    type: String,
+    required: true,
+  },
+  conductor_name: {
+    type: String,
+    required: true,
+  },
+  conductor_phone: {
+    type: String,
+    required: true,
+  },
+  image_license: {
+    type: String,
+    required: true,
+  },
+  image_driver: {
+    type: String,
+    required: true,
+  },
+  from: {
+    type: String,
+    required: true,
+  },
+  to: {
+    type: String,
+    required: true,
+  },
+  departureTime: {
+    type: String, // Assuming time is stored as a string in the format "HH:MM"
+    required: true,
+  },
+  capacity: {
+    type: Number,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  isApproved: {
+    type: Boolean,
+    required: true,
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
+  ownerDetails: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "OwnerDetails",
+    required: true,
+  },
+}, { timestamps: true });
 
-BusDetails.belongsTo(OwnerDetails);
+const BusDetails = mongoose.model("BusDetails", busDetailsSchema);
 
-BusDetails.sync({alter:true});
-module.exports = BusDetails
+module.exports = BusDetails;

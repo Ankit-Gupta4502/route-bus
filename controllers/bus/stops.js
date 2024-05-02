@@ -37,11 +37,20 @@ function calculateExpectedArrivalTime(baseDepartureTime, stops) {
     console.log(typeof(baseDepartureTime),baseDepartureTime)
     let departureTime = new Date(`2000-01-01T${baseDepartureTime}`);
      console.log(departureTime)
-  stops.forEach(stop => {
-    const expectedArrivalTime = new Date(departureTime.getTime() + stop.travelTime * 60000); // Convert travel time to milliseconds
-    stop.expectedArrivalTime = expectedArrivalTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    departureTime = expectedArrivalTime;
-    console.log(departureTime,stop,stop.travelTime)
+     stops.forEach(stop => {
+      // Split the travel time into hours and minutes
+      const [hours, minutes] = stop.travelTime.split(':').map(Number);
+      
+      // Add hours and minutes to the departure time
+      departureTime.setHours(departureTime.getHours() + hours);
+      departureTime.setMinutes(departureTime.getMinutes() + minutes);
+
+      const expectedArrivalTime = departureTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      stop.expectedArrivalTime = expectedArrivalTime;
+
+      // Update departureTime for the next stop
+      console.log(departureTime, stop, stop.travelTime);
   });
+
   return departureTime;
 }

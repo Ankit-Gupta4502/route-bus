@@ -1,34 +1,21 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../../util/database");
-const BusDetails = require("./BusDetails");
+const mongoose = require("mongoose");
 
-const Trip = sequelize.define(
-  "Trip",
-  {
-    tripDate: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    status: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    busDetailsId:{
-        type:DataTypes.INTEGER,
-        model:BusDetails,
-        key:"id"
-      }
+const tripSchema = new mongoose.Schema({
+  tripDate: {
+    type: Date,
+    required: true,
   },
-  {
-    timestamps: false,
-  }
-);
-Trip.sync(); 
+  status: {
+    type: String,
+    required: true,
+  },
+  busDetails: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "BusDetails",
+    required: true,
+  },
+}, { timestamps: false });
 
-BusDetails.hasMany(Trip, {
-  foreignKey:"busDetailsId"
-});
-Trip.belongsTo(BusDetails);
-  
+const Trip = mongoose.model("Trip", tripSchema);
 
 module.exports = Trip;

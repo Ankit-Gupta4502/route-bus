@@ -1,25 +1,23 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../util/database");
+const mongoose = require("mongoose");
 
-const Otp = sequelize.define("otp", {
-    user_type: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    phone: {
-        type: DataTypes.STRING,
-        allowNull: false, 
-    },
-    otp: {
-        type: DataTypes.INTEGER,
-    },
-    isVerified:{
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-    },
-}, {
-    timestamps: true,
-});
+const otpSchema = new mongoose.Schema({
+  user_type: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  otp: {
+    type: Number,
+  },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+}, { timestamps: true });
 
-Otp.sync()
+const Otp = mongoose.model("Otp", otpSchema);
+
 module.exports = Otp;

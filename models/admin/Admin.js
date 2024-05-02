@@ -1,41 +1,40 @@
+const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const sequelize = require("../../util/database");
-const { DataTypes } = require("sequelize");
 
-const admin = sequelize.define(
-  "admin",
-  {
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validations: {
-        isEmail: true,
+const adminSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: {
+      validator: function (v) {
+        return /^\S+@\S+\.\S+$/.test(v);
       },
-      unique: true,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    mobile: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      message: props => `${props.value} is not a valid email address!`,
     },
   },
-  {
-    timestamps: true,
+  password: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+  },
+  mobile: {
+    type: String,
+  },
+}, { timestamps: true });
+
+// Hash the password before saving
+adminSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    return next();
   }
-);
-
-admin.sync();
-module.exports = admin;
-
-admin.addHook("beforeCreate", async (user) => {
-    const hash = await bcrypt.hash(user.password, 10);
-    user.password = hash;
-    return user;
+  const hash = await bcrypt.hash(this.password, 10);
+  this.password = hash;
+  next();
 });
+
+const Admin = mongoose.model("Admin", adminSchema);
+
+module.exports = Admin;

@@ -1,50 +1,33 @@
-const { DataTypes, Op } = require("sequelize");
-const sequelize = require("../../util/database");
-const BusDetails = require("./BusDetails");
+const mongoose = require("mongoose");
 
-const Stops = sequelize.define(
-  "Stops",
-  {
-    stopName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        len: [2, 50],
-      },
-    },
-    distanceFromSource: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    travelTime: {
-      type: DataTypes.INTEGER,  
-      allowNull: false,
-    },
-    sequence: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    expectedArrivalTime: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    busDetailsId:{
-      type:DataTypes.INTEGER,
-      model:BusDetails,
-      key:"id"
-    }
+const stopsSchema = new mongoose.Schema({
+  stopName: {
+    type: String,
+    required: true,
   },
-  {
-    timestamps: true,
-  }
-);
+  distanceFromSource: {
+    type: Number,
+    required: true,
+  },
+  travelTime: {
+    type: String, // Assuming time is stored as a string in the format "HH:MM"
+    required: true,
+  },
+  sequence: {
+    type: String,
+    required: true,
+  },
+  expectedArrivalTime: {
+    type: String,
+    required: true,
+  },
+  busDetails: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "BusDetails",
+    required: true,
+  },
+}, { timestamps: true });
 
-Stops.sync({ alter: true });
-
-BusDetails.hasMany(Stops, {
-  foreignKey: "busDetailsId",
-}); 
-Stops.belongsTo(BusDetails);
+const Stops = mongoose.model("Stops", stopsSchema);
 
 module.exports = Stops;

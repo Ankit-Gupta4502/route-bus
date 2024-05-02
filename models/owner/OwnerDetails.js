@@ -1,48 +1,23 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../../util/database");
+const mongoose = require("mongoose");
 
-
-const OwnerDetails = sequelize.define(
-  "OwnerDetails",
-  {
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-            len: [2, 50]
-        }
-    },
-    phone: {
-        type: DataTypes.INTEGER,
-        allowNull: false, 
-        validate: {
-            notEmpty: true, 
-            len: [10, 10] 
-        }
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false, 
-        unique: true,
-        validate: {
-            notEmpty: true, 
-            isEmail: true 
-        }
-    },
-    pancard: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-   adharcard: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+const ownerDetailsSchema = new mongoose.Schema({
+  name: {
+    type: String,
   },
-  {
-    timestamps: true,
-  }
-);
-OwnerDetails.sync(); 
+  phone: {
+    type: Number,
+  },
+  email: {
+    type: String,
+  },
+  pancard: {
+    type: String,
+  },
+  adharcard: {
+    type: Number,
+  },
+}, { timestamps: true });
 
-module.exports =OwnerDetails
+const OwnerDetails = mongoose.model("OwnerDetails", ownerDetailsSchema);
+
+module.exports = OwnerDetails;

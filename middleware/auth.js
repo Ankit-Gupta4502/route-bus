@@ -8,7 +8,7 @@ const checkToken = async (req, res, next) => {
     }
 
     const token = authToken.replace("Bearer ", "");
-
+   
     jwt.verify(token, process.env.JWT, (err, decoded) => {
       if (err) {
         return res
@@ -16,6 +16,7 @@ const checkToken = async (req, res, next) => {
           .json({ message: "token is not valid", error: err });
       }
       req.decoded = decoded;
+
       next();
     });
   } catch (err) {
