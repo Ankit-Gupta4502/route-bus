@@ -9,6 +9,7 @@ const {
 } = require("../../controllers/bus/busDetails");
 const { checkToken } = require("../../middleware/auth");
 const { uploadMulter } = require("../../util/index");
+const {validateAddBusDetail} = require("../../controllers/bus/validations")
 
 const router = require("express").Router();
 
@@ -19,6 +20,7 @@ router.post(
     { name: "image_license", maxCount: 1 },
     { name: "image_driver", maxCount: 1 },
   ]),
+  validateAddBusDetail(),
   checkToken,
   addBusDetail
 );

@@ -42,15 +42,15 @@ exports.addBusDetail = async (req, res) => {
     driver_phone,
     conductor_name,
     conductor_phone,
-    image_license,
-    image_driver,
     from,
     to,
     capacity,
     price,
-    isApproved,
-    ownerDetailId,
+    // isApproved,
+    // ownerDetailId,
   } = req.body;
+  const {id} = req.decoded
+
 
   try {
     const bus = await Bus.findOne({ where: { busNumber: busNumber } });
@@ -78,10 +78,9 @@ exports.addBusDetail = async (req, res) => {
       to,
       capacity,
       price,
-      isApproved,
-      ownerDetailId,
+      ownerDetailId:id,
+      isApproved
     });
-
     return res.status(200).json(newBus);
   } catch (error) {
     console.log(error, "isisj");
