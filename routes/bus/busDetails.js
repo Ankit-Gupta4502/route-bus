@@ -13,7 +13,7 @@ const {validateAddBusDetail} = require("../../controllers/bus/validations")
 
 const router = require("express").Router();
 
-router.post("/add-bus/:ownerId", checkToken, addBus);
+// router.post("/add-bus/:ownerId", checkToken, addBus);
 router.post(
   "/add-bus-detail",
   uploadMulter().fields([

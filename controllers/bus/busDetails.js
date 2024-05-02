@@ -1,32 +1,8 @@
-const { normalize } = require("path");
 const Bus = require("../../models/bus/BusDetails");
 const conductor = require("../../models/conductor/conductor");
 const Owner = require("../../models/owner/OwnerDetails");
 
-exports.addBus = async (req, res) => {
-  const { ownerId } = req.params;
 
-  try {
-    const owner = await Owner.findOne({
-      where: { id: ownerId, isVerified: true },
-    });
-    if (!owner) {
-      return res
-        .status(401)
-        .json({ message: "Owner not verified or not found" });
-    }
-    const newBus = await Bus.create({
-      ...req.body,
-      ownerDetailId: ownerId,
-      isApproved: false,
-    });
-
-    return res.status(200).json(newBus);
-  } catch (error) {
-    console.error("Error adding bus details:", error);
-    return res.status(500).send({ message: "Internal Server Error" });
-  }
-};
 
 exports.addBusDetail = async (req, res) => {
   const {
@@ -44,10 +20,11 @@ exports.addBusDetail = async (req, res) => {
     conductor_phone,
     from,
     to,
+    departureTime,
     capacity,
     price,
-    // isApproved,
-    // ownerDetailId,
+    isApproved,
+    ownerDetailsId,
   } = req.body;
   const {id} = req.decoded
 
@@ -76,10 +53,11 @@ exports.addBusDetail = async (req, res) => {
       image_driver: req.files.image_driver[0].path,
       from,
       to,
+      departureTime,
       capacity,
       price,
-      ownerDetailId:id,
-      isApproved
+      isApproved,
+      ownerDetailsId,
     });
     return res.status(200).json(newBus);
   } catch (error) {
@@ -161,6 +139,7 @@ exports.editBusDetails = async (req, res) => {
             : undefined,
         from: req.body.from,
         to: req.body.to,
+        departureTime:req.body.departureTime,
         capacity: req.body.capacity,
         price: req.body.price,
       },

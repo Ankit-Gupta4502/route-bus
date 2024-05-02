@@ -1,6 +1,6 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Op } = require("sequelize");
 const sequelize = require("../../util/database");
-const Trip = require("./Trip");
+const BusDetails = require("./BusDetails");
 
 const Stops = sequelize.define(
   "Stops",
@@ -13,41 +13,38 @@ const Stops = sequelize.define(
         len: [2, 50],
       },
     },
-    distanceFromSource:{
-        type: DataTypes.STRING,
-      allowNull: false
-    },
-    arrivalTime: {
-      type: DataTypes.TIME,
+    distanceFromSource: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    departureTime: {
-      type: DataTypes.TIME,
+    travelTime: {
+      type: DataTypes.INTEGER,  
       allowNull: false,
     },
     sequence: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    tripId:{
-        type:DataTypes.INTEGER,
-        model:Trip,
-        key:"id"
-      },
-     busDetailsId:{
-        type:DataTypes.INTEGER,
-        model:BusDetails,
-        key:"id"
-      }
+    expectedArrivalTime: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    busDetailsId:{
+      type:DataTypes.INTEGER,
+      model:BusDetails,
+      key:"id"
+    }
   },
   {
-    timestamps: false,
+    timestamps: true,
   }
 );
-Stops.sync();
 
-Trip.hasMany(Stops, {
-    foreignKey:"tripId"
-  });
-  Stops.belongsTo(Trip);
+Stops.sync({ alter: true });
+
+BusDetails.hasMany(Stops, {
+  foreignKey: "busDetailsId",
+}); 
+Stops.belongsTo(BusDetails);
+
 module.exports = Stops;
